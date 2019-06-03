@@ -1,0 +1,275 @@
+<% var plantRateSum = 0;  %>
+<% var fecha = "";  %>
+<% var idorder = "";  %>
+<% var quantity = 0;  %>
+<html>
+
+<head>
+    <title>EJS to PDF Example</title>
+    <style>
+        .table {
+            width: 100%;
+            border-bottom: solid 1px black;
+        }
+        .table-footer {
+            width: 50%;
+            border-bottom: solid 1px black;
+            float: right;
+        }
+
+        .header {                                                                                                          
+            font-size: 30px;                                                                                               
+            font-weight: bold;
+        }                                                                                                                  
+        .row {                                                                                                             
+            width: 100%;                                                                                                   
+            font-size: 30px;                                                                                               
+            font-weight: 200;                                                                                              
+        }                                                                                                                  
+                                                                                                                           
+        .row > td, .header > th {                                                                                          
+            width: 33%;                                                                                                    
+        }                                                                                                                  
+        .title{                                                                                                            
+            text-align: center;                                                                                            
+        }
+        .table-forma {            
+            width: 100%;
+            border-bottom: solid 1px black;
+            float: left;            
+        }                                                                                                                  
+    </style>                                                                                                               
+</head>                                                                                                                    
+<body style="margin-left:40px;">        
+    <img style="margin-left:90px;" src="http://159.203.156.208:8082/logoprint.png">
+    <table class="table">                                                                                                          
+        <tbody style="text-align:center">  
+            <tr>
+                <td style="font-size:25px !important;">RNC: 131-473865</td>
+            </tr>                                                                                                                                                                                         
+            <tr>
+                <td style="font-size:25px !important;">TEL.: 809-638-9999</td>
+            </tr>                                                                                                                                                                                         
+            <tr>
+                <td style="font-size:25px !important;">Nuestro Horario</td>
+            </tr>                                                                                                                                                                                         
+            <tr>
+                <td style="font-size:25px !important;">Abiertos los Sabados: 8am a 1pm</td>
+            </tr>                                                                                                                                                                                         
+            <tr>
+                <td style="font-size:25px !important;">Lunes a Viernes: 7:30am a 7:00pm</td>
+            </tr>                                                                                                                                                                                         
+            <tr>
+                <td style="font-size:25px !important;">Domingos: Cerrado</td>
+            </tr>                                                                                                                                                                                         
+        </tbody>
+    </table>
+    <br/>
+    <table class="table">                                                                                                  
+            <thead class="header">                                                                                             
+                <th>                                                                                                           
+                    ORDEN DE SERVICIO #
+                </th>            
+                <th>                                                                                                           
+                    <h3 style="font-size:25px !important;"><%= JSON.stringify(idOrder); %></h3>
+                </th>            
+            </thead>                                                                                                          
+            <tbody>                                                                                                                                                                                           
+            </tbody>
+    </table>
+    <br/>
+    <table class="table">                                                                                                  
+            <thead class="header">                                                                                             
+                <th style="font-size:15px !important;">                                                                                                           
+                    Fecha:
+                </th>            
+                <th>                                                                                                           
+                    <td style="font-size:15px !important;"><%= JSON.stringify(date); %></td>
+                </th>            
+                <th style="font-size:15px !important;">                                                                                                           
+                    Hora:
+                </th>            
+                <th>                                                                                                           
+                    <td style="font-size:15px !important;"><%= JSON.stringify(time); %></td>
+                </th>            
+            </thead>                                                                                                          
+            <tbody>       
+                <tr>
+                    <td>Estado:</td>
+                    <td><%= JSON.stringify(status); %></td>
+                </tr>                                                                                                                                                                                    
+                <tr>
+                    <td>CAJERO:</td>
+                    <td>YEIMY</td>
+                </tr>                                                                                                                                                                                    
+            </tbody>
+    </table>
+    <br/>
+    <table class="table">                                                                                                  
+            <thead class="header">                                                                                             
+                <th style="font-size:15px !important;" >                                                                                                           
+                    DATOS DEL CLIENTE
+                </th>                            
+            </thead>                                                                                                                      
+            <tbody>                                  
+                        <tr>
+                            <td>Nombre:</td>                            
+                            <td style="font-weight: bold;font-size:20px;"><%= JSON.stringify(name); %></td>
+                        </tr>                                                                                                                                                                             
+                        <tr>
+                            <td>Contacto:</td>
+                            <td></td>
+                        </tr>                                                                                                                                                                             
+                        <tr>
+                            <td>Direccion:</td>
+                            <td></td>
+                        </tr>                                                                                                                                                                             
+                        <tr>
+                            <td>Telefono:</td>
+                            <td><%= JSON.stringify(telefono); %></td>
+                        </tr>                                                                                                                                                                                                 
+            </tbody>
+    </table>
+    <br/>
+    <table class="table">                                                                                                  
+        <thead class="header">                                                                                             
+            <th style="font-size:25px !important;">                                                                                                           
+               Cant.                                                                                                          
+            </th>                                                                                                          
+            <th style="font-size:25px !important;">                                                                                                           
+               Articulo                                                                                                    
+            </th>                                                                                                                                                                                                                               
+            <th style="font-size:25px !important;">                                                                                                           
+                Precio                                                                                                     
+            </th>                                                                                                          
+        </thead>                                                                                                           
+        <tbody>                
+             <% item.forEach(function (employee,index) { %>                                                                
+                <tr>
+                    <td style="font-size: 15px !important;text-align:center;">                                                                                                   
+                        <%= employee.quantity %>  
+                    </td>
+                    <td style="font-size: 15px !important;text-align:center;">                                                                                                   
+                        <%= employee.item %>                                                                               
+                    </td>                                                                                                                                                                                                                       
+                    <td style="font-size: 15px !important;text-align:center;">                                                                                                   
+                        <%= employee.project %>
+                    </td>                                                                                                  
+                    <% plantRateSum += employee.project %>                                                                 
+                    <% fecha = employee.date %>                                                                                                                                                   
+                    <% idorder = employee.id %>                                                                            
+                    <% quantity += employee.quantity %>                                                                    
+                </tr>                                                                                                      
+            <% })%>                                                                                                        
+        </tbody>                                                                                                           
+    </table>                                                                                                               
+    <br/>                                                                                                                          
+    <table class="table">                                                                                           
+        <thead class="header">                                                                                             
+            <th style="font-size:15px !important;float: left;">
+                Total de piezas:     
+            </th>                                                                                                          
+            <th style="font-size:15px !important;float: left;">
+                <td style="font-size:15px !important;float: left;"><%= JSON.stringify(quantity); %></td>
+            </th>
+            <th style="font-size:15px !important;">
+                Itbis:     
+            </th>                                                                                                          
+            <th >
+                <td style="font-size:15px !important;"><%= JSON.stringify(itbis); %></td>
+            </th>
+            <th style="font-size:15px !important;">
+                Total                                                                                                      
+            </th>                                                                                                          
+            <th >
+                <td style="font-size:15px !important;"><%= JSON.stringify(grandTotal); %></td>
+                <!-- <%= plantRateSum %>                                                                                         -->
+            </th>
+        </thead>                                 
+        <tbody>
+            <tr>                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="font-size:25px !important;">Abono:</td>
+                <td style="font-size:25px !important;">0.00</td>
+            </tr>
+            <tr>                                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="font-size:25px !important;">Desc:</td>
+                <td style="font-size:25px !important;"><%= JSON.stringify(desc); %></td>
+            </tr>
+            <tr>                                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="font-size:25px !important;">Total a pagar:</td>                
+                <td style="font-size:20px !important;"><%= JSON.stringify(grandTotal); %></td>
+            </tr>
+        </tbody>                                                                          
+    </table>                                                                                                               
+    <br/>                                                                                               
+    <table class="table">                                                                                           
+        <thead>                                                                                                         
+            <th style="font-size:15px !important;"  >                                                                      
+                Dias de entrega:
+            </th>                                                                                                                      
+            <th style="font-size:15px;font-weight:normal;"  >                                                                      
+                <h3 style="font-size:15px !important;"><%= JSON.stringify(fechaentrega); %></h3>
+            </th>                                                                                                                     
+            <th style="font-size:15px !important;"  >                                                                      
+                Hora:
+            </th>                                                                                                                      
+            <th style="font-size:15px;font-weight:normal;"  >                                                                      
+                <h3 style="font-size:15px !important;"><%= JSON.stringify(horaentrega); %></h3>
+            </th>                                                                                                                     
+        </thead>          
+    </table>                
+    <br/>                                                                                               
+    <table class="table">                                                                                           
+        <thead >                                                                                                         
+            <th style="font-size:25px !important;"  >                                                                      
+                Condiciones de lavado y/o Planchado
+            </th>                                                                                                                          
+        </thead>          
+        <tbody>
+            <tr>
+                <td style="font-weight:bold;">1- NO SE ENTREGARA ROPA SIN ESTE RECIBO</td>
+            </tr>
+            <tr><td style="font-size:25px !important;">2- Esta Orden vence en 30 dias pasados este tiempo su ropa sera declarada en en abandono y sera donada</td></tr>
+            <tr><td style="font-size:25px !important;">3- Despues que entregamos no somos responsable de su ropa</td></tr>
+            <tr><td style="font-size:25px !important;">4- No hay garantia de prendas elaboradas con telas de mala calidad que destiñe, ropa recibida percudidas o con manchas rebeldes</td></tr>
+            <tr><td style="font-size:25px !important;">5- No somos responsables por mancha tratas que no ha sido removidas y no hay devolucion de dinero. Ya que el servicio brindado requiere inversion en la aplicacion productos especiales para desmanchar y el tiempo del personal</td></tr>
+            <tr><td style="font-size:25px !important;">6- En caso de perdidas o daños, muestra responsabilidad maxima es el 30% del costo de la prenda y se pagara en servicio consumidos</td></tr>
+            <tr><td style="font-size:25px !important;">7- La aceptacion a esta Orden o Factura es señal de conformidad a estas condiciones</td></tr>
+        </tbody>        
+    </table>    
+    <table class="table">                                                                                           
+            <thead >                                                                                                         
+                <th style="font-size:25px !important;"  >                                                                      
+                    GRACIAS POR SU VISITA!
+                </th>                                                                                                                          
+            </thead>          
+    </table>
+<!-- <br/>                                                                                                                      
+<br/>                                                                                                                      
+<h1>&nbsp;</h1>                                                                                                            
+<br/>                                                                                                                      
+<br/>                                                                                                                      
+<h2>&nbsp;&nbsp;&nbsp; No. Orden   <%= idorder %></h2>                                                                     
+<h2>&nbsp;&nbsp;&nbsp; Fecha recibido   <%= fecha %></h2>                                                                  
+<h2>&nbsp;&nbsp;&nbsp; Fecha entrega   <%= fechaentrega %></h2>                                                            
+<h2>&nbsp;&nbsp;&nbsp; Cantidad de piezas   <%= quantity %></h2>                                                           
+<h5>&</h5>                                                                                                                 
+<br/>                                                                                                                      
+<h1>&nbsp;</h1>                                                                                                            
+<h3>&nbsp;&nbsp;Gracias por preferirnos</h3>
+<br/>
+<br/> -->
+</body>
+</html>
